@@ -2,21 +2,19 @@ package com.example.news;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
-import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+
+import com.example.news.activity.GuideActivity;
+import com.example.news.activity.MainActivity;
+import com.example.news.utils.CenterUtil;
 
 public class SplashActivity extends AppCompatActivity {
 
+    public static final String SELECT_MAIN = "select_main";
     private RelativeLayout mSplashRoot;
 
     @Override
@@ -78,7 +76,20 @@ public class SplashActivity extends AppCompatActivity {
          */
         @Override
         public void onAnimationEnd(Animation animation) {
-            Toast.makeText(SplashActivity.this, "欢迎使用！", Toast.LENGTH_SHORT).show();
+            boolean isMain= CenterUtil.getBoolean(SplashActivity.this, SELECT_MAIN);
+            Intent intent=null;
+            if (isMain){
+                //进入主页面
+                intent=new Intent(SplashActivity.this, MainActivity.class);
+            }else {
+                //进入引导界面
+                 intent=new Intent(SplashActivity.this, GuideActivity.class);
+            }
+
+            startActivity(intent);
+
+            finish();
+//            Toast.makeText(SplashActivity.this, "欢迎使用！", Toast.LENGTH_SHORT).show();
         }
         
         /**
